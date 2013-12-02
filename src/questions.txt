@@ -1,0 +1,4 @@
+Question 1:
+Roll N: 
+Write a function called rollN that takes a single integer parameter N and returns an array of N integers where the value of each integer is (randomly) between one and six. 
+You should call a standard random number generator to produce the values between one and six - inclusive.
