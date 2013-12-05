@@ -8,7 +8,7 @@ import java.util.regex.*;
 import java.util.Random;
 
 /**
-
+ * 
  * @author Ying
  *
  */
@@ -77,12 +77,12 @@ public class Dice2 {
 			}
 		}
  
-		return findMostFequentinTable(countTable);
+		return findMostFequentinTable1(countTable);
 	}
 	
 	/**
 	 * a helper method to find the key which has the max value in the hashtable
-	 * @param table
+	 * @param table key is the sum and value is the count
 	 * @return
 	 */
 	static int[] findMostFequentinTable(Hashtable<Integer, Integer> table){
@@ -108,6 +108,81 @@ public class Dice2 {
 			result[i] = resultList.get(i);
 		}
 		return result;
+	}
+	
+	static int[] findMostFequentinTable1(Hashtable<Integer, Integer> table){
+		//determine max value in the table
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		
+		Queue<Entry<Integer, Integer>> q = new PriorityQueue<Entry<Integer, Integer>>(
+				table.size(), new Comparator<Entry<Integer, Integer>>(){
+					
+			@Override
+			public int compare(Entry<Integer, Integer> o1,
+					Entry<Integer, Integer> o2) {
+				
+				if(o2.getValue() > o1.getValue()){
+					return 1;
+				}
+				if(o2.getValue() < o1.getValue()){
+					return -1;
+				}
+				return 0;
+			}
+		});
+		
+		for(Entry<Integer, Integer> e : table.entrySet()){
+			q.add(e);
+		}
+		
+		int max = q.remove().getKey();
+		list.add(max);
+		while(!q.isEmpty() && max == q.peek().getKey()){
+			list.add(q.remove().getKey());
+		}
+		int[] result = new int[list.size()];
+		for(int i = 0; i < result.length; i++){
+			result[i] = list.get(i);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Question 3:
+	 * One to one hundred
+	 * Write a function called one2oneHundred that takes as input an integer array of length 5 where 
+	 * each element is a number between 1 and 6 inclusive.	
+	 * Produce as output a random number in the range 1 to 100 inclusive.
+     * If called a sufficiently large number of times the random numbers produced should be evenly 
+     * distributed between 1 and 100. You might not be able to get a very even distribution - but get 
+     * as close as you (reasonably) can.
+	 * Essentially generate a random number in the range 1 to 100 inclusive where the only source of 
+	 * randomness is the (simulated) roll of five dice
+	 */
+	static int one2oneHundred(int[] dice) {
+	
+		int result = 0;
+	
+		return result;
+	}
+
+
+	/**
+	 * Question 4:
+	 * How Random
+	 * Write a function howRandom() to measure the 'randomness' of the function one2oneHundred()
+	 * that you created to answer the previous question.
+	 * Note: due to limitations of Interview Street you will need to copy paste your rollN() 
+	 * and one2oneHundred()function implementations into the body of your howRandom() function
+	 * There are no input parameters.
+	 * As output you should produce a floating point value between 0.0 and 1.0
+	 * Where 0.0 means not random (numbers not evenly distributed between 1 and 100)
+	 * And 1.0 means completely random, very evenly distributed between 1 and 100
+	 */
+	static double howRandom (){
+		
+		return 0.0;
 	}
  
 }
